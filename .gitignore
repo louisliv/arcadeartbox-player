@@ -1,0 +1,7 @@
+aabdev/*
+.vscode/*
+__pycache__/*
+arcadeartbox-firebase-adminsdk-a221q-792a936e30.json
+credentials.json
+persistent_ids.txt
+token.json
