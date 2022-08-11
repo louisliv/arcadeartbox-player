@@ -47,7 +47,7 @@ class Player:
     def start_player(self):
         if self.videos:
             self.create_player()
-            # self.end_volume = self.player.volume()
+            self.end_volume = self.player.volume()
 
     def create_player(self):
         player_log.info("Starting player...")
@@ -62,10 +62,10 @@ class Player:
 
         arg_string = f"-b --vol {self.end_volume}"
 
-        # self.player = OMXPlayer(url, args=arg_string)
-        # self.player.playEvent = self.on_play
-        # self.player.pauseEvent = self.on_pause
-        # self.player.exitEvent = self.refresh
+        self.player = OMXPlayer(url, args=arg_string)
+        self.player.playEvent = self.on_play
+        self.player.pauseEvent = self.on_pause
+        self.player.exitEvent = self.refresh
 
         player_log.info("Player started.")
 
@@ -80,7 +80,7 @@ class Player:
         )
 
     def execute_command(self, action):
-        print(action)
+        player_log.info(f"Command recieved - {action}")
         if self.player:
             if action == "refresh":
                 self.next()
