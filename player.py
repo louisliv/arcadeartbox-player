@@ -83,11 +83,26 @@ class Player:
         player_log.info("Creating media...")
         media: vlc.Media = self.instance.media_new(url)
 
+        mods = self.player.audio_output_device_enum()
+
+        device_to_use = None
+
+        if mods:
+            mod = mods
+            while mod:
+                mod = mod.contents
+                if mod.device == b"sysdefault:CARD=vc4hdmi0":
+                    device_to_use = mod.device
+                mod = mod.next
+
         player_log.info("Setting media...")
         self.player.set_media(media)
         media.release()
 
+        vlc.libvlc_audio_output_device_list_release(mods)
+
         player_log.info("Playing media...")
+        self.player.audio_output_device_set(None, device_to_use)
         self.player.audio_set_volume(self.end_volume)
         self.player.play()
         player_log.info("Player started.")
