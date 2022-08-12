@@ -103,7 +103,6 @@ class Player:
         )
 
     def execute_command(self, action):
-        player_log.info(f"Command recieved - {action}")
         if self.player:
             if action == "refresh":
                 self.next()
